@@ -83,4 +83,50 @@ const cardNumberPattern = {
     return foundMask
   },
 }
+
 const cardNumberMasked = (cardNumber, cardNumberPattern)
+//a partir do momento que o meu codigo identifica um evento de click, ele via disparar uma funcao
+const addButton = document.querySelector("#add-card")
+//o listener fica escutando/observando o elemento que eu selecionei acima.
+addButton.addEventListener("click", () => {
+  alert("Cartão adicionado")
+})
+
+//estou dizendo pro meu js: observa o evento de submit
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault() //tira o reload do submit
+})
+
+const cardHolder = document.querySelector("#card-holder")
+//pedir pro js ficar observando quando acontecer o evento de input
+//a cada letra digitada, o input esta sendo observado pelo listener (103) e acessa a referencia da label (105) para alterar o conteudo (107)
+cardHolder.addEventListener("input", () => {
+  //selecionar o value do cc holder
+  const ccHolder = document.querySelector(".cc-holder .value")
+
+  //IF TERNARIO: o meu cardHolder.value.length é igual a zero? se nao for, mostre fulano. se for, mostra o valor dele. (isso pra nao sumir o nome no cartao quando eu apagar o nome da formulario)
+  ccHolder.innerText =
+    cardHolder.value.length === 0 ? "FULANO DA SILVA" : cardHolder.value
+})
+
+//mesma logica do eventListener. aqui observa quando ocorrer um input nesse campo
+securityCodeMasked.on("accept", () => {
+  //se tiver aceito dentro dos padroes que foram criados na minha mascara
+  updateSecurityCode(securityCodeMasked.value) //tirar duvida desse value
+})
+
+function updateSecurityCode(code) {
+  const ccSecurity = document.querySelector(".cc-security .value")
+
+  ccSecurity.innerText = code.length === 0 ? "123" : code
+}
+
+cardNumberMasked.on("accept", () => {
+  updateCardNumber(cardNumberMasked.value)
+})
+
+function updateCardNumber(number) {
+  const ccNumber = document.querySelector(".cc-number")
+
+  ccNumber.innerText = number.length === 0 ? "1234 5678 9012 3456" : number
+}
